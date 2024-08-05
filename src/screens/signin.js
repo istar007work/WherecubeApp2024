@@ -1,7 +1,7 @@
 // src/screens/SignInScreen.js
 import React, { useState } from 'react';
 import theme from '../colors/theme';
-import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { View, Text, TextInput, StyleSheet, TouchableOpacity, Image } from 'react-native';
 
 const SignInScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
@@ -10,7 +10,9 @@ const SignInScreen = ({ navigation }) => {
   const handleSignIn = () => {
     // Handle sign in logic here
     // On successful sign in, navigate to Home screen
-    navigation.navigate('Home');
+    navigation.navigate('Main', {
+      screen: 'Home',
+    });
   };
 
   return (
@@ -36,7 +38,9 @@ const SignInScreen = ({ navigation }) => {
           onChangeText={setPassword}
           secureTextEntry
         />
-        <Button title="Sign In" onPress={handleSignIn} style={styles.button} />
+        <TouchableOpacity onPress={handleSignIn} style={styles.button}>
+          <Text style={styles.buttonText}>Sign In</Text>
+        </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
           <Text style={styles.signUpText}>Don't have an account? Sign Up</Text>
         </TouchableOpacity>
@@ -50,7 +54,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     padding: 40,
-    backgroundColor:theme.colors.background
+    backgroundColor: theme.colors.background,
   },
   logo_image: {
     width: 100,
@@ -58,7 +62,7 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
     alignSelf: 'center', // Center the image horizontally
     marginTop: 70, // Add margin to separate from the form
-    marginBottom: -40
+    marginBottom: -40,
   },
   formContainer: {
     flex: 1,
@@ -69,8 +73,6 @@ const styles = StyleSheet.create({
     fontSize: 24,
     marginBottom: 20,
     textAlign: 'center',
-    
-    
   },
   input: {
     height: 40,
@@ -86,14 +88,14 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   button: {
-    backgroundColor: '#1434A4',
-    color: '#1434A4',
+    backgroundColor: '#0047AB',
     padding: 10,
     borderRadius: 5,
     alignItems: 'center',
+    marginTop: 20, // Add some margin to separate from inputs
   },
   buttonText: {
-    color: '#fff', // Text color
+    color: 'white', // Text color set to black
     fontSize: 16,
     fontWeight: 'bold',
   },

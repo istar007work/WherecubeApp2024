@@ -1,6 +1,6 @@
 // src/screens/SignUpScreen.js
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, StyleSheet, TouchableOpacity, Image } from 'react-native';
 
 const SignUpScreen = ({ navigation }) => {
   const [firstName, setFirstName] = useState('');
@@ -10,11 +10,13 @@ const SignUpScreen = ({ navigation }) => {
   const [confirmPassword, setConfirmPassword] = useState('');
 
   const handleSignUp = () => {
-    // Handle sign up logic here
+    // Handle sign-up logic here
     if (password === confirmPassword) {
-      // Perform sign up
-      // On successful sign up, navigate to Home screen
-      navigation.navigate('Home');
+      // Perform sign-up
+      // On successful sign-up, navigate to Home screen
+      navigation.navigate('Main', {
+        screen: 'Home',
+      });
     } else {
       alert('Passwords do not match');
     }
@@ -22,6 +24,10 @@ const SignUpScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
+      <Image 
+        style={styles.logo_image}
+        source={require('../../assets/geologo2.png')} 
+      />
       <Text style={styles.title}>Sign Up</Text>
       <TextInput
         style={styles.input}
@@ -57,7 +63,9 @@ const SignUpScreen = ({ navigation }) => {
         onChangeText={setConfirmPassword}
         secureTextEntry
       />
-      <Button title="Sign Up" onPress={handleSignUp} />
+      <TouchableOpacity onPress={handleSignUp} style={styles.button}>
+        <Text style={styles.buttonText}>Sign Up</Text>
+      </TouchableOpacity>
       <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
         <Text style={styles.signInText}>Already have an account? Sign In</Text>
       </TouchableOpacity>
@@ -70,6 +78,14 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     padding: 20,
+    marginBottom: 100,
+  },
+  logo_image: {
+    width: 75,
+    height: 50,
+    resizeMode: 'contain',
+    alignSelf: 'center', // Center the image horizontally
+    marginBottom: 10,
   },
   title: {
     fontSize: 24,
@@ -84,10 +100,23 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     borderRadius: 5,
   },
+  button: {
+    backgroundColor: '#0047AB',
+    padding: 10,
+    borderRadius: 5,
+    alignItems: 'center',
+    marginTop: 5, // Add some margin to separate from inputs
+  },
+  buttonText: {
+    color: 'white', // Text color set to white
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
   signInText: {
     marginTop: 20,
-    color: 'blue',
+    color: 'black',
     textAlign: 'center',
+    marginTop: 15,
   },
 });
 

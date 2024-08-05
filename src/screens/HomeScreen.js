@@ -1,20 +1,44 @@
 // src/screens/HomeScreen.js
 import React from 'react';
-import { View, Text, ImageBackground, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, Image, ImageBackground, StyleSheet, TouchableOpacity } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons'; // Import vector icon
+
 
 const HomeScreen = ({ navigation }) => {
   return (
     <ImageBackground
-      source={require('../../assets/home.back.jpg')} // Adjust the path based on your project structure
+      source={require('../../assets/home_back.jpg')} // Adjust the path based on your project structure
       style={styles.background}
     >
       <View style={styles.overlayContainer}>
-        {/* Scan button in the middle */}
+        {/* Logo */}
+        <Image 
+          source={require('../../assets/geologo.png')} // Adjust the path based on your project structure
+          style={styles.logo}
+        />
+
+        
         <TouchableOpacity 
-          style={styles.scanButton} 
+          style={styles.button} 
           onPress={() => navigation.navigate('Scan')}
         >
-          <Text style={styles.scanButtonText}>Scan</Text>
+          <Text style={styles.buttonText}>Bluetooth</Text>
+        </TouchableOpacity>
+        
+        {/* Bluetooth Button */}
+        <TouchableOpacity 
+          style={styles.button} 
+          onPress={() => navigation.navigate('Bluetooth')}
+        >
+          <Text style={styles.buttonText}>QR Code</Text>
+        </TouchableOpacity>
+        
+        {/* Enter Manually Button */}
+        <TouchableOpacity 
+          style={styles.button} 
+          onPress={() => navigation.navigate('ManualEntry')}
+        >
+          <Text style={styles.buttonText}>Enter Manually</Text>
         </TouchableOpacity>
         
         {/* Footer text at the bottom */}
@@ -38,15 +62,25 @@ const styles = StyleSheet.create({
     justifyContent: 'center', // Center items vertically within the background
     alignItems: 'center',
     padding: 20,
+    marginTop: -200,
   },
-  scanButton: {
+  logo: {
+    width: 150,
+    height: 150,
+    marginBottom: 10, // Space between logo and first button
+    resizeMode: 'contain',
+    alignSelf: 'center', // Center the image horizontally
+  },
+  button: {
     backgroundColor: '#ffff',
     paddingVertical: 20,
     paddingHorizontal: 40,
     borderRadius: 40,
-    marginBottom: 40, // Space between button and footer text
+    marginBottom: 20, // Space between buttons
+    width: 250, // Fixed width for all buttons
+    alignItems: 'center', // Center text horizontally within the button
   },
-  scanButtonText: {
+  buttonText: {
     color: 'black',
     fontSize: 20,
     textAlign: 'center',
