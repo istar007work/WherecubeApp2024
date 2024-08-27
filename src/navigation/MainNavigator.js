@@ -9,7 +9,7 @@ import HomeScreen from '../screens/HomeScreen';
 import DetailsScreen from '../screens/DetailsScreen';
 import SignUpScreen from '../screens/signup';
 import SignInScreen from '../screens/signin';
-import ScanScreen from '../screens/scan';
+import Bluetoothsystem from '../screens/scan';
 import ProfileScreen from '../screens/ProfileScreen';
 import DeviceStatus from '../screens/device';
 
@@ -65,7 +65,7 @@ const MainNavigator = () => {
       }}>
         <Stack.Screen name="SignIn" component={SignInScreen} />
         <Stack.Screen name="SignUp" component={SignUpScreen} />
-        <Stack.Screen name="Scan" component={ScanScreen} />
+        <Stack.Screen name="Scan" component={Bluetoothsystem} />
         <Stack.Screen name="Main" component={TabNavigator} options={{ headerShown: false }} />
         {/* You can include other screens if needed */}
       </Stack.Navigator>

@@ -7,7 +7,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons'; // Import vector ico
 const HomeScreen = ({ navigation }) => {
   return (
     <ImageBackground
-      source={require('../../assets/home_back.jpg')} // Adjust the path based on your project structure
+      source={require('../../assets/homebfotor.jpg')} // Adjust the path based on your project structure
       style={styles.background}
     >
       <View style={styles.overlayContainer}>
@@ -56,6 +56,7 @@ const styles = StyleSheet.create({
     resizeMode: 'cover', // Cover the whole screen
     justifyContent: 'center', // Center items vertically
     alignItems: 'center',
+    
   },
   overlayContainer: {
     flex: 1,
@@ -63,6 +64,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 20,
     marginTop: -200,
+    
   },
   logo: {
     width: 150,

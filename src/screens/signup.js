@@ -1,79 +1,84 @@
 // src/screens/SignUpScreen.js
 import React, { useState } from 'react';
-import { View, Text, TextInput, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { View, Text, TextInput, StyleSheet, TouchableOpacity, Image, ImageBackground, Alert } from 'react-native';
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth'; // Import Firebase authentication functions
+import { auth } from '../../firebaseConfig'; // Import Firebase auth from your config
 
 const SignUpScreen = ({ navigation }) => {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-  const handleSignUp = () => {
-    // Handle sign-up logic here
+  const handleSignUp = async () => {
     if (password === confirmPassword) {
-      // Perform sign-up
-      // On successful sign-up, navigate to Home screen
-      navigation.navigate('Main', {
-        screen: 'Home',
-      });
+      try {
+        // Create user with email and password
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+
+        // Optionally, handle user additional setup here (e.g., store user info in Firestore)
+
+        // Show success alert
+        Alert.alert('Success', 'Account created successfully!', [
+          { text: 'OK', onPress: () => navigation.navigate('Main', { screen: 'Home' }) },
+        ]);
+      } catch (error) {
+        Alert.alert('Error', `Error: ${error.message}`);
+      }
     } else {
-      alert('Passwords do not match');
+      Alert.alert('Error', 'Passwords do not match');
     }
   };
 
   return (
-    <View style={styles.container}>
-      <Image 
-        style={styles.logo_image}
-        source={require('../../assets/geologo2.png')} 
-      />
-      <Text style={styles.title}>Sign Up</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="First Name"
-        value={firstName}
-        onChangeText={setFirstName}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Last Name"
-        value={lastName}
-        onChangeText={setLastName}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Email"
-        value={email}
-        onChangeText={setEmail}
-        keyboardType="email-address"
-        autoCapitalize="none"
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Password"
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Confirm Password"
-        value={confirmPassword}
-        onChangeText={setConfirmPassword}
-        secureTextEntry
-      />
-      <TouchableOpacity onPress={handleSignUp} style={styles.button}>
-        <Text style={styles.buttonText}>Sign Up</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
-        <Text style={styles.signInText}>Already have an account? Sign In</Text>
-      </TouchableOpacity>
-    </View>
+    <ImageBackground
+      source={require('../../assets/3827.jpg')} // Adjust the path based on your project structure
+      style={styles.background}
+    >
+      <View style={styles.container}>
+        <Image 
+          style={styles.logo_image}
+          source={require('../../assets/geologo2.png')} 
+        />
+        <Text style={styles.title}>Sign Up</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Email"
+          value={email}
+          onChangeText={setEmail}
+          keyboardType="email-address"
+          autoCapitalize="none"
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Password"
+          value={password}
+          onChangeText={setPassword}
+          secureTextEntry
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Confirm Password"
+          value={confirmPassword}
+          onChangeText={setConfirmPassword}
+          secureTextEntry
+        />
+        <TouchableOpacity onPress={handleSignUp} style={styles.button}>
+          <Text style={styles.buttonText}>Sign Up</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
+          <Text style={styles.signInText}>Already have an account? Sign In</Text>
+        </TouchableOpacity>
+      </View>
+    </ImageBackground>
   );
 };
 
 const styles = StyleSheet.create({
+  background: {
+    flex: 1,
+    resizeMode: 'cover',
+  },
   container: {
     flex: 1,
     justifyContent: 'center',
@@ -84,7 +89,7 @@ const styles = StyleSheet.create({
     width: 75,
     height: 50,
     resizeMode: 'contain',
-    alignSelf: 'center', // Center the image horizontally
+    alignSelf: 'center',
     marginBottom: 10,
   },
   title: {
@@ -94,27 +99,28 @@ const styles = StyleSheet.create({
   },
   input: {
     height: 40,
-    borderColor: '#ccc',
+    borderColor: 'black',
     borderWidth: 1,
     marginBottom: 20,
     paddingHorizontal: 10,
     borderRadius: 5,
+    backgroundColor:'#cccccc',
   },
   button: {
     backgroundColor: '#0047AB',
     padding: 10,
     borderRadius: 5,
     alignItems: 'center',
-    marginTop: 5, // Add some margin to separate from inputs
+    marginTop: 5,
   },
   buttonText: {
-    color: 'white', // Text color set to white
+    color: 'white',
     fontSize: 16,
     fontWeight: 'bold',
   },
   signInText: {
     marginTop: 20,
-    color: 'black',
+    color: 'white',
     textAlign: 'center',
     marginTop: 15,
   },
